@@ -7,6 +7,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"time"
 )
 
 func main() {
@@ -15,8 +16,8 @@ func main() {
 	priv2, _ := x509.ParsePKCS1PrivateKey(priv2_b)
 
 	cert := tls.Certificate{
-		Certificate: [][]byte{ cert2_b },
-		PrivateKey: priv2,
+		Certificate: [][]byte{cert2_b},
+		PrivateKey:  priv2,
 	}
 
 	config := tls.Config{Certificates: []tls.Certificate{cert}, InsecureSkipVerify: true}
@@ -35,16 +36,18 @@ func main() {
 	log.Println("client: handshake: ", state.HandshakeComplete)
 	log.Println("client: mutual: ", state.NegotiatedProtocolIsMutual)
 
-	message := "Hello\n"
-	n, err := io.WriteString(conn, message)
-	if err != nil {
-		log.Fatalf("client: write: %s", err)
-	}
-	log.Printf("client: wrote %q (%d bytes)", message, n)
+	for i := 0; i < 5*60; i++ {
+		message := "Hello\n"
+		n, err := io.WriteString(conn, message)
+		if err != nil {
+			log.Fatalf("client: write: %s", err)
+		}
+		log.Printf("client: wrote %q (%d bytes)", message, n)
 
-	reply := make([]byte, 256)
-	n, err = conn.Read(reply)
-	log.Printf("client: read %q (%d bytes)", string(reply[:n]), n)
+		reply := make([]byte, 256)
+		n, err = conn.Read(reply)
+		log.Printf("client: read %q (%d bytes)", string(reply[:n]), n)
+		time.Sleep(1 * time.Second)
+	}
 	log.Print("client: exiting")
 }
-

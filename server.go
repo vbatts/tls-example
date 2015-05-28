@@ -3,10 +3,10 @@ package main
 import (
 	"crypto/rand"
 	"crypto/tls"
-	"log"
-	"net"
 	"crypto/x509"
 	"io/ioutil"
+	"log"
+	"net"
 )
 
 func main() {
@@ -20,14 +20,14 @@ func main() {
 	pool.AddCert(ca)
 
 	cert := tls.Certificate{
-		Certificate: [][]byte{ ca_b },
-		PrivateKey: priv,
+		Certificate: [][]byte{ca_b},
+		PrivateKey:  priv,
 	}
 
 	config := tls.Config{
-		ClientAuth: tls.RequireAndVerifyClientCert,
+		ClientAuth:   tls.RequireAndVerifyClientCert,
 		Certificates: []tls.Certificate{cert},
-		ClientCAs: pool,
+		ClientCAs:    pool,
 	}
 	config.Rand = rand.Reader
 	service := "0.0.0.0:443"
@@ -82,4 +82,3 @@ func handleClient(conn net.Conn) {
 	}
 	log.Println("server: conn: closed")
 }
-
