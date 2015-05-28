@@ -30,7 +30,7 @@ func main() {
 		ClientCAs:    pool,
 	}
 	config.Rand = rand.Reader
-	service := "0.0.0.0:443"
+	service := "0.0.0.0:11111"
 	listener, err := tls.Listen("tcp", service, &config)
 	if err != nil {
 		log.Fatalf("server: listen: %s", err)
