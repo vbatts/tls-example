@@ -47,9 +47,9 @@ func main() {
 	cert2 := &x509.Certificate{
 		SerialNumber: big.NewInt(1658),
 		Subject: pkix.Name{
-			Country:            []string{"China"},
-			Organization:       []string{"Fuck"},
-			OrganizationalUnit: []string{"FuckU"},
+			Country:            []string{"US"},
+			Organization:       []string{"Acme"},
+			OrganizationalUnit: []string{"AcmeCorp"},
 		},
 		NotBefore:    time.Now(),
 		NotAfter:     time.Now().AddDate(10, 0, 0),
