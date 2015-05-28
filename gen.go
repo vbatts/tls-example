@@ -15,9 +15,9 @@ func main() {
 	ca := &x509.Certificate{
 		SerialNumber: big.NewInt(1653),
 		Subject: pkix.Name{
-			Country:            []string{"China"},
-			Organization:       []string{"Yjwt"},
-			OrganizationalUnit: []string{"YjwtU"},
+			Country:            []string{"US"},
+			Organization:       []string{"Acme"},
+			OrganizationalUnit: []string{"AcmeServer"},
 		},
 		NotBefore:             time.Now(),
 		NotAfter:              time.Now().AddDate(10, 0, 0),
@@ -49,7 +49,7 @@ func main() {
 		Subject: pkix.Name{
 			Country:            []string{"US"},
 			Organization:       []string{"Acme"},
-			OrganizationalUnit: []string{"AcmeCorp"},
+			OrganizationalUnit: []string{"AcmeClient"},
 		},
 		NotBefore:    time.Now(),
 		NotAfter:     time.Now().AddDate(10, 0, 0),

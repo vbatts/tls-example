@@ -21,7 +21,7 @@ func main() {
 	}
 
 	config := tls.Config{Certificates: []tls.Certificate{cert}, InsecureSkipVerify: true}
-	conn, err := tls.Dial("tcp", "127.0.0.1:111111", &config)
+	conn, err := tls.Dial("tcp", "127.0.0.1:11111", &config)
 	if err != nil {
 		log.Fatalf("client: dial: %s", err)
 	}
@@ -36,7 +36,8 @@ func main() {
 	log.Println("client: handshake: ", state.HandshakeComplete)
 	log.Println("client: mutual: ", state.NegotiatedProtocolIsMutual)
 
-	for i := 0; i < 5*60; i++ {
+	// ping pong for 6 minutes
+	for i := 0; i < 6*60; i++ {
 		message := "Hello\n"
 		n, err := io.WriteString(conn, message)
 		if err != nil {
