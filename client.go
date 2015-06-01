@@ -45,12 +45,15 @@ func main() {
 	log.Println("client: handshake: ", state.HandshakeComplete)
 	log.Println("client: mutual: ", state.NegotiatedProtocolIsMutual)
 
+	start := time.Now()
 	// ping pong timeout
 	quit := time.After(time.Duration(*flMinutes) * time.Minute)
 	for {
 		message := "Hello\n"
+		now := time.Now()
 		n, err := io.WriteString(conn, message)
 		if err != nil {
+			defer log.Printf("time spent: %s", now.Sub(start))
 			log.Fatalf("client: write: %s", err)
 		}
 		log.Printf("client: wrote %q (%d bytes)", message, n)
